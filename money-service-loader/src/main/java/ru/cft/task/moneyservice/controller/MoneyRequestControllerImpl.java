@@ -24,7 +24,7 @@ public class MoneyRequestControllerImpl implements MoneyRequestController {
     @Override
     @RequestMapping("/send")
     public void process(@RequestParam(value = "xml") String xml) {
-        LOGGER.debug(xml);
+        LOGGER.info(xml);
         moneyTransferService.process(xml);
     }
 }
