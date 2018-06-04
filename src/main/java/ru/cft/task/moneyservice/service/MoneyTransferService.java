@@ -1,16 +1,13 @@
 package ru.cft.task.moneyservice.service;
 
-import ru.cft.task.moneyservice.dto.MoneyTransferRequestType;
-
 /**
- * Сервис-обработчик
+ * Сервис-обработчик запроса
  */
 public interface MoneyTransferService {
-    /** Метод выполняет обработку строки, содержащей текст XML запроса
+    /**
+     * Метод выполянет обработку запроса
      *
-     * @param xml
+     * @param xml текст запроса
      */
     void process(String xml);
-
-    void saveTransferInfo(MoneyTransferRequestType request);
 }

@@ -1,7 +1,5 @@
 package ru.cft.task.moneyservice.entity;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -11,7 +9,7 @@ import java.util.Date;
  * Информация о запросе
  */
 @Entity
-public class RequestInfo extends AbstractPersistable<String> {
+public class RequestInfo {
     // идентификатор запроса
     @Id
     private String id;
@@ -19,9 +17,8 @@ public class RequestInfo extends AbstractPersistable<String> {
     private Date requestDate;
     // текст запроса
     @Lob
-    private String requestText;
+    private byte[] requestText;
 
-    @Override
     public void setId(String id) {
         this.id = id;
     }
@@ -34,11 +31,15 @@ public class RequestInfo extends AbstractPersistable<String> {
         this.requestDate = requestDate;
     }
 
-    public String getRequestText() {
+    public byte[] getRequestText() {
         return requestText;
     }
 
-    public void setRequestText(String requestText) {
+    public void setRequestText(byte[] requestText) {
         this.requestText = requestText;
+    }
+
+    public String getId() {
+        return id;
     }
 }

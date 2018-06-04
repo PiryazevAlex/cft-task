@@ -28,4 +28,5 @@ public class RequestInfoServiceImpl implements RequestInfoService {
         return requestInfoRepository.findOneById(requestId)
                 .isPresent();
     }
+
 }

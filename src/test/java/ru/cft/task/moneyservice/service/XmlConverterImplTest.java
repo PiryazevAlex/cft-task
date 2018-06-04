@@ -20,8 +20,8 @@ public class XmlConverterImplTest {
         String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
                 "<money-transfer-requests>" +
                 "  <money-transfer-request id=\"str1234\">" +
-                "    <sender name=\"str1234\" account=\"str1234\" />" +
-                "    <recipient name=\"str1234\" account=\"str1234\" />" +
+                "    <sender name=\"Иванов\" account=\"Счет Иванова\" />" +
+                "    <recipient name=\"Петров\" account=\"Счет Петрова\" />" +
                 "    <amount>123.45</amount>" +
                 "    <commission>123.45</commission>" +
                 "  </money-transfer-request>" +
@@ -29,7 +29,7 @@ public class XmlConverterImplTest {
         MoneyTransferRequestsType result = converter.convert(xml);
         Assert.assertThat(result.getMoneyTransferRequest(), hasSize(1));
         Assert.assertThat(result.getMoneyTransferRequest().get(0).getAmount(), is(new BigDecimal("123.45")));
-        Assert.assertThat(result.getMoneyTransferRequest().get(0).getSender().getName(), is("str1234"));
+        Assert.assertThat(result.getMoneyTransferRequest().get(0).getSender().getName(), is("Иванов"));
     }
 
     @Test(expected = InvalidXmlException.class)
@@ -66,4 +66,6 @@ public class XmlConverterImplTest {
         correspondent.setName(name);
         return correspondent;
     }
+
+
 }

@@ -1,5 +1,6 @@
 package ru.cft.task.moneyservice.service;
 
+import ru.cft.task.moneyservice.dto.MoneyTransferRequestType;
 import ru.cft.task.moneyservice.entity.RequestInfo;
 
 public interface RequestInfoService {
@@ -10,4 +11,7 @@ public interface RequestInfoService {
      * @return сохраненный объект
      */
     RequestInfo save(RequestInfo requestInfo);
+
+
+
 }
