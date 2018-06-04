@@ -19,6 +19,9 @@
     <version>2.0.2.RELEASE</version>
     <relativePath/>
   </parent>
+  <modules>
+    <module>money-service-dto</module>
+  </modules>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

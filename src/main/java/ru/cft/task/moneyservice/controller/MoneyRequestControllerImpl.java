@@ -8,16 +8,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.cft.task.moneyservice.service.MoneyTransferService;
 
+/**
+ * Контроллер для обработки запросов
+ */
 @RestController
-public class RequestProcessor {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RequestProcessor.class);
+public class MoneyRequestControllerImpl implements MoneyRequestController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MoneyRequestControllerImpl.class);
     private final MoneyTransferService moneyTransferService;
 
     @Autowired
-    public RequestProcessor(MoneyTransferService moneyTransferService) {
+    public MoneyRequestControllerImpl(MoneyTransferService moneyTransferService) {
         this.moneyTransferService = moneyTransferService;
     }
 
+    @Override
     @RequestMapping("/send")
     public void process(@RequestParam(value = "xml") String xml) {
         LOGGER.debug(xml);
