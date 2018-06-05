@@ -1,4 +1,4 @@
-package ru.cft.task.moneyservice.service;
+package ru.cft.task.moneyservice.service.converter;
 
 import ru.cft.task.moneyservice.dto.MoneyTransferRequestType;
 import ru.cft.task.moneyservice.dto.MoneyTransferRequestsType;

@@ -1,4 +1,4 @@
-package ru.cft.task.moneyservice.service;
+package ru.cft.task.moneyservice.service.file;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -18,15 +18,15 @@ import java.text.MessageFormat;
 public class FileExportServiceImpl implements FileExportService {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileExportServiceImpl.class);
     private static final String FILENAME_TEMPLATE = "{0}/{1}_request.json";
+    private static final ObjectWriter OBJECT_WRITER = new ObjectMapper().writerWithDefaultPrettyPrinter();
+
     private final String targetFolder;
     private final Charset encoding;
-    private ObjectWriter objectWriter;
 
     public FileExportServiceImpl(@Value("${json.folder}") String targetFolder,
                                  @Value("${json.charset}") String encoding) {
         this.targetFolder = targetFolder;
         this.encoding = Charset.forName(encoding);
-        this.objectWriter = new ObjectMapper().writerWithDefaultPrettyPrinter();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class FileExportServiceImpl implements FileExportService {
         try (OutputStreamWriter writer = new OutputStreamWriter(
                 new FileOutputStream(buildFileName(dto.getId())),
                 encoding)) {
-            objectWriter.writeValue(writer, dto);
+            OBJECT_WRITER.writeValue(writer, dto);
         } catch (Exception e) {
             LOGGER.error("File creating error", e);
         }

@@ -1,10 +1,11 @@
-package ru.cft.task.moneyservice.service;
+package ru.cft.task.moneyservice.service.request;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.cft.task.moneyservice.dto.MoneyTransferRequestsType;
 import ru.cft.task.moneyservice.runnable.MoneyTransferTask;
+import ru.cft.task.moneyservice.service.converter.XmlConverter;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

@@ -1,4 +1,4 @@
-package ru.cft.task.moneyservice.service;
+package ru.cft.task.moneyservice.service.request;
 
 /**
  * Сервис-обработчик запроса

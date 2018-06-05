@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.cft.task.moneyservice.service.MoneyTransferService;
+import ru.cft.task.moneyservice.service.request.MoneyTransferService;
 
 /**
  * Контроллер для обработки запросов
@@ -24,7 +24,7 @@ public class MoneyRequestControllerImpl implements MoneyRequestController {
     @Override
     @RequestMapping("/send")
     public void process(@RequestParam(value = "xml") String xml) {
-        LOGGER.info(xml);
+        LOGGER.debug("Получен запрос {}", xml);
         moneyTransferService.process(xml);
     }
 }

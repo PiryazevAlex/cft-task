@@ -1,4 +1,4 @@
-package ru.cft.task.moneyservice.service;
+package ru.cft.task.moneyservice.service.request;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,20 @@ public class RequestInfoServiceImpl implements RequestInfoService {
 
     @Override
     public RequestInfo save(RequestInfo requestInfo) {
-        if (!checkExistingRequest(requestInfo.getId())) {
+        if (!isRequestExist(requestInfo.getId())) {
             return requestInfoRepository.save(requestInfo);
         } else {
             throw new AlreadyExistsRequestException(requestInfo.getId());
         }
     }
 
-    private boolean checkExistingRequest(String requestId) {
+    /**
+     * Метод выполняет проверку существования запроса
+     *
+     * @param requestId идентификатор проверяемого запроса
+     * @return true - запрос существует, false - в противном случае
+     */
+    private boolean isRequestExist(String requestId) {
         return requestInfoRepository.findOneById(requestId)
                 .isPresent();
     }

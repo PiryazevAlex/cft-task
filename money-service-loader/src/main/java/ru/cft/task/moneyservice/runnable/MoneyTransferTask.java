@@ -3,7 +3,7 @@ package ru.cft.task.moneyservice.runnable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.cft.task.moneyservice.dto.MoneyTransferRequestType;
-import ru.cft.task.moneyservice.service.MoneyTransferRequestService;
+import ru.cft.task.moneyservice.service.request.MoneyTransferRequestService;
 
 /**
  * Задача обработки одного запроса

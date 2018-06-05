@@ -7,4 +7,5 @@
     <groupId>ru.cft.task</groupId>
     <artifactId>money-service-dto</artifactId>
     <version>1.0</version>
+    <description>DTO для предоставления клиентам</description>
 </project>

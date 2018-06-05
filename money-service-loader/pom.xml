@@ -9,7 +9,8 @@
     <packaging>jar</packaging>
 
     <name>money-service</name>
-    <description>Модуль, производящий передачу
+    <description>
+        Модуль, производящий передачу
         и преобразование данных о денежных переводах
     </description>
 
@@ -31,16 +32,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>

@@ -1,4 +1,4 @@
-package ru.cft.task.moneyservice.service;
+package ru.cft.task.moneyservice.service.converter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.cft.task.moneyservice.dto.MoneyTransferRequestType;
 import ru.cft.task.moneyservice.dto.MoneyTransferRequestsType;
 import ru.cft.task.moneyservice.exception.InvalidXmlException;
+import ru.cft.task.moneyservice.exception.JaxbContextInitializationException;
 import ru.cft.task.moneyservice.exception.XmlCreatingException;
 
 import javax.xml.bind.JAXBContext;
@@ -21,12 +22,22 @@ import java.io.StringWriter;
 @Service
 public class XmlConverterImpl implements XmlConverter {
     private static final Logger LOGGER = LoggerFactory.getLogger(XmlConverterImpl.class);
-    private static final String MONEY_TRANSFER_REQUEST_TAG = "money-transfer-request";
+    private static final QName Q_NAME = new QName("money-transfer-request");
+    private static JAXBContext context;
+
+    static {
+        try {
+            context = JAXBContext.newInstance(
+                    MoneyTransferRequestsType.class,
+                    MoneyTransferRequestType.class);
+        } catch (JAXBException e) {
+            throw new JaxbContextInitializationException(e);
+        }
+    }
 
     @Override
     public MoneyTransferRequestsType convert(String xml) {
         try {
-            JAXBContext context = JAXBContext.newInstance(MoneyTransferRequestsType.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             JAXBElement<MoneyTransferRequestsType> requests = unmarshaller.unmarshal(
                     new StreamSource(new StringReader(xml)),
@@ -41,10 +52,9 @@ public class XmlConverterImpl implements XmlConverter {
     @Override
     public String convert(MoneyTransferRequestType moneyTransferRequestType) {
         try {
-            JAXBContext context = JAXBContext.newInstance(MoneyTransferRequestType.class);
             Marshaller marshaller = context.createMarshaller();
-            QName qName = new QName(MONEY_TRANSFER_REQUEST_TAG);
-            JAXBElement<MoneyTransferRequestType> root = new JAXBElement<>(qName, MoneyTransferRequestType.class,
+
+            JAXBElement<MoneyTransferRequestType> root = new JAXBElement<>(Q_NAME, MoneyTransferRequestType.class,
                     moneyTransferRequestType);
             StringWriter writer = new StringWriter();
             marshaller.marshal(root, writer);
