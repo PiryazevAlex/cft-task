@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -20,7 +21,7 @@ public class FileExportServiceImplTest {
 
     @Test
     public void exportDataShouldCreateCorrectFile() throws IOException {
-        Files.delete(Paths.get(buildFileName(REQUEST_ID)));
+        deleteFile(REQUEST_ID);
         RequestInfoDto dto = buildRequestInfoDto(
                 REQUEST_ID,
                 "Счет Иванова",
@@ -30,13 +31,21 @@ public class FileExportServiceImplTest {
         fileExportService.exportData(dto);
 
         String content = String.join("\n", Files.readAllLines(Paths.get(buildFileName(REQUEST_ID)),
-                                                              Charset.forName(CHARSET_NAME)));
+                Charset.forName(CHARSET_NAME)));
         Assert.assertThat(content, is("{\n" +
-                                              "  \"id\" : \"12345\",\n" +
-                                              "  \"payerAccount\" : \"Счет Петрова\",\n" +
-                                              "  \"payeeAccount\" : \"Счет Иванова\",\n" +
-                                              "  \"sum\" : 100.00\n" +
-                                              "}"));
+                "  \"id\" : \"12345\",\n" +
+                "  \"payerAccount\" : \"Счет Петрова\",\n" +
+                "  \"payeeAccount\" : \"Счет Иванова\",\n" +
+                "  \"sum\" : 100.00\n" +
+                "}"));
+    }
+
+    private void deleteFile(String requestId) throws IOException {
+        try {
+            Files.delete(Paths.get(buildFileName(requestId)));
+        } catch (NoSuchFileException e) {
+
+        }
     }
 
     private static String buildFileName(String requestId) {
