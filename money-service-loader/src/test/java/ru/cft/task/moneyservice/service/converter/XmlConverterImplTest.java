@@ -6,8 +6,6 @@ import ru.cft.task.moneyservice.dto.CorrespondentType;
 import ru.cft.task.moneyservice.dto.MoneyTransferRequestType;
 import ru.cft.task.moneyservice.dto.MoneyTransferRequestsType;
 import ru.cft.task.moneyservice.exception.InvalidXmlException;
-import ru.cft.task.moneyservice.service.converter.XmlConverter;
-import ru.cft.task.moneyservice.service.converter.XmlConverterImpl;
 
 import java.math.BigDecimal;
 

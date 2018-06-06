@@ -3,12 +3,7 @@ package ru.cft.task.moneyservice.service.request;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 import ru.cft.task.moneyservice.entity.RequestInfo;
 import ru.cft.task.moneyservice.exception.AlreadyExistsRequestException;
@@ -17,7 +12,6 @@ import ru.cft.task.moneyservice.repository.RequestInfoRepository;
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 

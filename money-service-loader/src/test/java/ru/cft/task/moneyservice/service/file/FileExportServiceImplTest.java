@@ -4,28 +4,23 @@ import org.junit.Assert;
 import org.junit.Test;
 import ru.cft.task.moneyservice.dto.RequestInfoDto;
 
-import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 
 public class FileExportServiceImplTest {
-    private final static String TARGET_FOLDER = ".";
-    private final static String REQUEST_ID = "12345";
-    private FileExportService fileExportService = new FileExportServiceImpl(TARGET_FOLDER, "CP1251");
+    private static final String TARGET_FOLDER = ".";
+    private static final String REQUEST_ID = "12345";
+    private static final String CHARSET_NAME = "CP1251";
+    private FileExportService fileExportService = new FileExportServiceImpl(TARGET_FOLDER, CHARSET_NAME);
 
     @Test
     public void exportDataShouldCreateCorrectFile() throws IOException {
-        File file = new File(buildFileName(REQUEST_ID));
-        if (file.exists()) {
-            file.delete();
-        }
+        Files.delete(Paths.get(buildFileName(REQUEST_ID)));
         RequestInfoDto dto = buildRequestInfoDto(
                 REQUEST_ID,
                 "Счет Иванова",
@@ -34,13 +29,14 @@ public class FileExportServiceImplTest {
 
         fileExportService.exportData(dto);
 
-        String content = String.join("\n", Files.readAllLines(Paths.get(buildFileName(REQUEST_ID)), Charset.forName("CP1251")));
+        String content = String.join("\n", Files.readAllLines(Paths.get(buildFileName(REQUEST_ID)),
+                                                              Charset.forName(CHARSET_NAME)));
         Assert.assertThat(content, is("{\n" +
-                "  \"id\" : \"12345\",\n" +
-                "  \"payerAccount\" : \"Счет Петрова\",\n" +
-                "  \"payeeAccount\" : \"Счет Иванова\",\n" +
-                "  \"sum\" : 100.00\n" +
-                "}"));
+                                              "  \"id\" : \"12345\",\n" +
+                                              "  \"payerAccount\" : \"Счет Петрова\",\n" +
+                                              "  \"payeeAccount\" : \"Счет Иванова\",\n" +
+                                              "  \"sum\" : 100.00\n" +
+                                              "}"));
     }
 
     private static String buildFileName(String requestId) {
