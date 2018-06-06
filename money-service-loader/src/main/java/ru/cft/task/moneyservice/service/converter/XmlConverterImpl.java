@@ -21,7 +21,6 @@ import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-import java.io.File;
 import java.io.StringReader;
 import java.io.StringWriter;
 
@@ -45,7 +44,7 @@ public class XmlConverterImpl implements XmlConverter {
     public XmlConverterImpl() {
         try {
             this.schema = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-                    .newSchema(new File(getClass().getResource("/money-transfer-requests.xsd").getFile()));
+                    .newSchema(new StreamSource(getClass().getResourceAsStream("/money-transfer-requests.xsd")));
         } catch (SAXException e) {
             throw new SchemaCreationException(e);
         }
@@ -72,7 +71,7 @@ public class XmlConverterImpl implements XmlConverter {
             Marshaller marshaller = context.createMarshaller();
 
             JAXBElement<MoneyTransferRequestType> root = new JAXBElement<>(Q_NAME, MoneyTransferRequestType.class,
-                                                                           moneyTransferRequestType);
+                    moneyTransferRequestType);
             StringWriter writer = new StringWriter();
             marshaller.marshal(root, writer);
             return writer.toString();
